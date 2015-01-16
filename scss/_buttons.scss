@@ -1,0 +1,18 @@
+.btn {
+	background: $teal;
+	box-shadow:0 1px 1px #444;
+	color: #fff;
+	margin:0 0 30px;
+
+	&:active,
+	&:hover,
+	&:focus {
+		color: #fff;
+	}
+
+	&:hover,
+	&:active {
+		background: darken($teal, 10%);
+		box-shadow:none;
+	}
+}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Learn Grunt</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+      <link rel="stylesheet" type="text/css" href="css/site.css">
+  </head>
+  <body>
+  <header>
+    <div class="container">
+      <section class="row">
+        <div class="col-xs-12">
+          <h1>Learning Grunt</h1>
+        </div>
+      </section>
+    </div>
+  </header>
+  <main class="container">
+    <article class="row">
+      <div class="col-xs-12">
+        <h2>Getting Started</h2>
+          <ul class="list-unstyled">
+            <li>
+              <h3>Install Grunt</h3>
+
+              <p>Go to <a href="http://gruntjs.com/" target="_blank">grunt's website</a> if you do not recall the install command for it. Sit back and let that process run. Maybe take a bathroom break.
+              </p>
+              <pre>
+              npm install -g grunt-cli
+              </pre>
+            </li>
+
+            <li>
+              <h3>Create a gruntfile</h3>
+              <p>Grunt be installed now it is time to create a gruntfile. Create a new file and save it as Gruntfile.js.  Naming, very important. All gruntfiles start with the following syntax so you will need to add it to your gruntfile. This tells the gruntfile to initialize and holds the blueprints of what it can do.</p>
+              <button class="btn">show code</button>
+              <pre>
+                'use strict';
+                  module.exports = function (grunt) {
+                  grunt.initConfig({
+           
+                  });
+                }
+              </pre>
+            </li>
+
+            <li>
+              <h3>Create a package.json</h3>
+              <p>So what does this do? It will be where we save what plugins/dependencies we use. Grunt is magic, but it needs plugins to do more magic. This file is going to allow us to store our setup for future reference or for others to use. Creating one of these helps to install everything you used swiftly and easily. It also allows your teammates to easily install the plugins you used without hunting them down. In addition, it will provide a type of version control. There are a few things that are package.json file needs: name, version, and dependency fields.</p>
+              <button class="btn">show code</button>
+              <pre>
+                {
+                  "name": "Learn-Grunt",
+                  "version": "1.0.0",
+                  "dependencies": {},
+                  "devDependencies": {}
+                }
+              </pre>
+              </li>
+
+            <li>
+            <h3>Okay so what now?</h3>
+              <p>Awesome so now we have our gruntfile setup, but what is so wrong with this page? No styles right? Well let us fix this mess. Notice the index file makes a call for a CSS file? Well looking in the CSS folder shows this file doesn't exist! Oh noes! Well... I have Bootstrap Sass... so maybe I should compile that into CSS? Break out them Google-Fu skills. We need a plugin.</p>
+              <p>Most grunt plugins start with the grunt- prefix so let's do a search for grunt-sass. There are two plugins, but this is the flavor you will need since it doesn't rely on having Ruby. <a href="https://github.com/sindresorhus/grunt-sass" target="_blank">Sass-plugin</a></p>
+            </li>
+
+            <li>
+              <h3>Installing dat sass</h3>
+              <p>Using the grunt-sass plugin repo we are going to follow their instructions on how to install. Most can be install by doing 'npm install plugin-name'. In this plugin's case it is</p>
+              <code>
+              npm install grunt-sass --save-dev
+              </code>
+              <p>The '--save-dev' are flags that save the plugin to the package.json file you created as a dependency. This basically says that this plugin is a dev dependency and needs to be saved into the package.json file. The package.json acts like a grocery list for NPM. It tells NPM when 'npm install' is called that it needs to grab these plugins and/or libraries from NPM's registry and install them. Now let's wait for the sass plugin to finish installing. </p>
+            </li>
+
+            <li>
+              <h3>Getting sass compiling</h3>
+              <p>
+                With the plugin installed, we need to tell grunt what to do with it. Crack open that gruntfile again. Again let's refer to the <a href="https://github.com/sindresorhus/grunt-sass" target="_blank">sass plugin repo</a> on how to configure our settings. Within our grunt file we will need to add a sass task, and of course we need to give it a 'source file' and a 'destination file'. Just like calling css in html, the file path had to be relative to the Gruntfile. The source file is the master sass file (hopefully not a partial if you did it right) that tells grunt to compile all of the imports and declarations in it to a CSS file. The destination file is the CSS file that these declarations are written to.  I have also changed the 'dist' subtask to read 'dev' as it falls more in line with our naming conventions. 
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+                sass: {
+                  dev: {
+                    files: {
+                      src: 'css/bootstrap.scss',
+                      dest: 'css/site.css'
+                    }
+                  }
+                 }
+              </pre>
+              <p>
+                Some plugins like this one also take a shorthand version of this format. Shorthand is a little strange in its formatting in that it puts the output file first and then the source file. Most plugins also contain an 'options' configuration. This modifies how the task behaves. In the case below I have added an option setting the sourceMap to true. This will create a mapping file so when I look at the compiled CSS file, I can see which scss files and line number a declaration came from.
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+                sass: {
+                options: {
+                    sourceMap: true
+                  },
+                  dev: {
+                    files: {
+                      'css/site.css' : 'css/bootstrap.scss'
+                    }
+                  }
+                }
+              </pre> 
+              <p>Almost there! We've told Grunt how we want to manipulate the files, but now we have to tell it yes this plugin is installed please let's use it. How do we do that? Load the sass task in. We will do this by adding a line of code to our grunt file. After ending of the <code>grunt.initConfig</code> function you need to add this line: <code>grunt.loadNpmTasks('grunt-sass');</code></p>
+              
+              <p>Open that command line and navigate to your project folder if you are not already there.  Now run <code>grunt sass</code>. Barring any errors you should now see the css file has been compiled. Refresh this page, now isn't that better? Congratulations you have configured your first grunt file! Now let's practice some more on other plugins we use. 
+              </p>
+            </li>
+
+            <li>
+              <h3>Concat some javascript</h3>
+              <p>
+                Now we are going to repeat a similar process to get our javascript concatenating. We are going to do a search for 'grunt-contrib-concat'. You want the repo that is done by the gruntjs team. Following the same steps we used for grunt-sass, install the plugin. Once the plugin is installed create the configuration for it in the gruntfile. Hint: the destination file should be js/site.js. Your source files should be any library files and/or project specific javascript files. In this case we are pulling in JQuery and script-learngrunt as our source files. We will also want to set options to give us a sourceMap.  
+                </p>
+                <button class="btn">show code</button>
+                <pre>
+                  concat: {
+                    dev: {
+                      src: ['js/jquery/jquery.min.js'],
+                      dest: 'js/site.js'
+                    }
+                  }
+                </pre>  
+                <p>
+                  Run <code>grunt concat</code>. If you now see a site.js (with code not an empty file!) appear in your js folder then the script has run successfully.
+                </p>
+
+            </li>
+
+            <li>
+              <h3>Getting more complex (watching your files)</h3>
+              <p>
+                You say the sass and concat is all nice, but alias I still have to enter these commands everytime I update the javascript and scss files for I am le lazy. Have no fear there is a plugin for this too! It is known as 'grunt-contrib-watch'. So let's visit that <a href="https://github.com/gruntjs/grunt-contrib-watch">repo</a>. The configuration is a little different than the other two plugins we have. The watch task watches the files you tell it to and runs a task according to when those files change. It doesn't rely on a destination and source file, instead it watches the files you tell it to for a save/delete/creation action. It will then run a task or tasks depending on the type of file which you will tell which tasks you want it to run. Read the full documentation of the plugin to understand all of the features it offers. For our purposes we are setting up a SCSS, JS, and HTML subtask with reload enabled. 
+              </p>
+              <p>For the SCSS subtask we need it to watch all of the .scss files and then run the sass task. For JS it should just know to reload the page on save and the same goes for the HTML subtask.
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+              watch: {
+                scss: {
+                  files: "scss/*.scss",
+                  tasks: ['sass'],
+                  options: { livereload:true }
+                },
+                html: {
+                  files: '*.html',
+                  options: { livereload:true }
+                }
+              }
+              </pre>
+            </li>
+
+            <li>
+              <h3>Syncing them browsers</h3>
+              <p>
+                So you want others to view your project over the network or have all the browsers refresh without you doing anything? Now it is time to move on to installing the <a href="https://github.com/shakyShane/grunt-browser-sync">grunt-browser-sync</a> plugin. Going through the same procedure, install the plugin, write in the load task for grunt, and configure the plugin. Browser sync relies on the bsfiles (yes get out all of your giggles) subtask for which files it should be reading. In our case we want it to watch all scss and javascript files. For right now we have only one HTML page, you can choose to watch just the index file or have it watch all HTML files. We are building out the static file server configuration. If you were working on say a MVC or SiteCore project, you would need to do the proxy configuration. We will also need to tell the task that watchtask is true within the options setting. This ensures that BrowserSync and watch play nicely with each other. This will become more important in our next step.
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+                browserSync: {
+                  bsFiles: {
+                    src: [
+                      'css/site.css',
+                      'index.html',
+                      'js/site.js'
+                    ]
+                  },
+                  options: {
+                    server: {
+                      baseDir: './'
+                    },
+                    watchTask: true
+                  }
+                }
+              </pre>
+            </li>
+
+            <li>
+              <h3>Create a grunt task</h3>
+              <p>Scary yes? We can work through this. We are goinng to set up a simple task. This task will call sass, browsersync, and finally watch all with one command! We are going to call it 'debug'. You can find Grunt's official documentation on creating a task on their <a href="http://gruntjs.com/creating-tasks">website</a>. Taken from their site this is the basic format of a grunt task.
+              </p>
+              <pre>
+                grunt.registerTask(taskName, [description, ] taskList);
+              </pre>
+              <p>Here we do not use the description field since we have a default task in our framework that gives you this information. The task should be placed after your loadNPMtasks section of the Gruntfile. You can add it before without issues, but for the sake of consistency place it after. If done correctly when you run the command <code>grunt debug</code> the command line should run sass, browsersync, and a page will open up in the browser with this site.
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+                grunt.registerTask('debug', ['sass', 'concat', 'browserSync', 'watch']);
+              </pre>
+            </li>
+          </ul>
+        </div>
+      </article>
+      <section class="row">
+        <div class="col-xs-12">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="http://gruntjs.com/getting-started">Grunt Documentation</a></li>
+            <li><a href="https://github.com/gruntjs">GruntJS & Plugins Git Repo</a></li>
+            <li><a href="https://docs.npmjs.com/">npm Documentation</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/script-learngrunt.js"></script>
+    <script src="//localhost:35729/livereload.js"></script>
+  </body>
+
+</html>
