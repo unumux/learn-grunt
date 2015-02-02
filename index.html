@@ -6,7 +6,9 @@
       <title>Learn Grunt</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
-      <link rel="stylesheet" type="text/css" href="css/site.css">
+      <!-- begin:css -->
+<link rel="stylesheet" type="text/css" href="css/site.css">
+<!-- end:css -->
   </head>
   <body>
   <header>
@@ -22,6 +24,7 @@
     <article class="row">
       <div class="col-xs-12">
         <h2>Getting Started</h2>
+        <p>This guide assumes you already have NPM/NodeJS installed on your machine. If this is not the case please download and install from their <a href="http://nodejs.org/" target="_blank">website</a>. It is highly recomended that you install it with the option to run from the command line. </p>
           <ul class="list-unstyled">
             <li>
               <h3>Install Grunt</h3>
@@ -73,7 +76,7 @@
               <code>
               npm install grunt-sass --save-dev
               </code>
-              <p>The '--save-dev' are flags that save the plugin to the package.json file you created as a dependency. This basically says that this plugin is a dev dependency and needs to be saved into the package.json file. The package.json acts like a grocery list for NPM. It tells NPM when 'npm install' is called that it needs to grab these plugins and/or libraries from NPM's registry and install them. Now let's wait for the sass plugin to finish installing. </p>
+              <p>The '--save-dev' are flags that save the plugin to the package.json file you created as a dependency. This basically says that this plugin is a dev dependency and needs to be saved into the package.json file. The package.json acts like a grocery list for NPM. It tells NPM when 'npm install' is called that it needs to grab these plugins and/or libraries from NPM's registry and install them. There are many more flags that are used in NPM. To learn about them all please visit NPM's documentation on it. Anything that starts with '-' stands for a flag in Node. Now let's wait for the sass plugin to finish installing. </p>
             </li>
 
             <li>
@@ -113,6 +116,11 @@
             </li>
 
             <li>
+              <h3>An aside on calling grunt tasks from command line</h3>
+              <p>You can call any grunt task from the command line using grunt followed by the object name of the task. In the case of the one above the object name is 'sass', so grunt sass invokes it to run</p>
+            </li>
+
+            <li>
               <h3>Concat some javascript</h3>
               <p>
                 Now we are going to repeat a similar process to get our javascript concatenating. We are going to do a search for 'grunt-contrib-concat'. You want the repo that is done by the gruntjs team. Following the same steps we used for grunt-sass, install the plugin. Once the plugin is installed create the configuration for it in the gruntfile. Hint: the destination file should be js/site.js. Your source files should be any library files and/or project specific javascript files. In this case we are pulling in JQuery and script-learngrunt as our source files. We will also want to set options to give us a sourceMap.  
@@ -135,7 +143,7 @@
             <li>
               <h3>Getting more complex (watching your files)</h3>
               <p>
-                You say the sass and concat is all nice, but alias I still have to enter these commands everytime I update the javascript and scss files for I am le lazy. Have no fear there is a plugin for this too! It is known as 'grunt-contrib-watch'. So let's visit that <a href="https://github.com/gruntjs/grunt-contrib-watch">repo</a>. The configuration is a little different than the other two plugins we have. The watch task watches the files you tell it to and runs a task according to when those files change. It doesn't rely on a destination and source file, instead it watches the files you tell it to for a save/delete/creation action. It will then run a task or tasks depending on the type of file which you will tell which tasks you want it to run. Read the full documentation of the plugin to understand all of the features it offers. For our purposes we are setting up a SCSS, JS, and HTML subtask with reload enabled. 
+                You say the sass and concat is all nice, but alas I still have to enter these commands everytime I update the javascript and scss files for I am le lazy. Have no fear there is a plugin for this too! It is known as 'grunt-contrib-watch'. So let's visit that <a target="_blank" href="https://github.com/gruntjs/grunt-contrib-watch">repo</a>. The configuration is a little different than the other two plugins we have. The watch task watches the files you tell it to and runs a task according to when those files change. It doesn't rely on a destination and source file, instead it watches the files you tell it to for a save/delete/creation action. It will then run a task or tasks depending on the type of file which you will tell which tasks you want it to run. Read the full documentation of the plugin to understand all of the features it offers. For our purposes we are setting up a SCSS, JS, and HTML subtask with reload enabled. 
               </p>
               <p>For the SCSS subtask we need it to watch all of the .scss files and then run the sass task. For JS it should just know to reload the page on save and the same goes for the HTML subtask.
               </p>
@@ -159,8 +167,10 @@
 
             <li>
               <h3>Syncing them browsers</h3>
+              <p>For this next step to work properly please go and do a global install of your machine of <a target="_blank" href="http://www.browsersync.io/">BrowserSync</a>. <code>npm install -g browser-sync</code>
+              </p>
               <p>
-                So you want others to view your project over the network or have all the browsers refresh without you doing anything? Now it is time to move on to installing the <a href="https://github.com/shakyShane/grunt-browser-sync">grunt-browser-sync</a> plugin. Going through the same procedure, install the plugin, write in the load task for grunt, and configure the plugin. Browser sync relies on the bsfiles (yes get out all of your giggles) subtask for which files it should be reading. In our case we want it to watch all scss and javascript files. For right now we have only one HTML page, you can choose to watch just the index file or have it watch all HTML files. We are building out the static file server configuration. If you were working on say a MVC or SiteCore project, you would need to do the proxy configuration. We will also need to tell the task that watchtask is true within the options setting. This ensures that BrowserSync and watch play nicely with each other. This will become more important in our next step.
+                So you want others to view your project over the network or have all the browsers refresh without you doing anything? Now it is time to move on to installing the <a target="_blank" href="https://github.com/shakyShane/grunt-browser-sync">grunt-browser-sync</a> plugin. Going through the same procedure, install the plugin, write in the load task for grunt, and configure the plugin. Browser sync relies on the bsfiles (yes get out all of your giggles) subtask for which files it should be reading. In our case we want it to watch all scss and javascript files. For right now we have only one HTML page, you can choose to watch just the index file or have it watch all HTML files. We are building out the static file server configuration. If you were working on say a MVC or SiteCore project, you would need to do the proxy configuration. We will also need to tell the task that watchtask is true within the options setting. This ensures that BrowserSync and watch play nicely with each other. This will become more important in our next step.
               </p>
               <button class="btn">show code</button>
               <pre>
@@ -184,21 +194,148 @@
 
             <li>
               <h3>Create a grunt task</h3>
-              <p>Scary yes? We can work through this. We are goinng to set up a simple task. This task will call sass, browsersync, and finally watch all with one command! We are going to call it 'debug'. You can find Grunt's official documentation on creating a task on their <a href="http://gruntjs.com/creating-tasks">website</a>. Taken from their site this is the basic format of a grunt task.
+              <p>Scary yes? We can work through this. We are goinng to set up a simple task. This task will call sass, browsersync, and finally watch all with one command! We are goig to call it 'debug'. You can find Grunt's official documentation on creating a task on their <a target="_blank" href="http://gruntjs.com/creating-tasks">website</a>. Taken from their site this is the basic format of a grunt task.
               </p>
               <pre>
                 grunt.registerTask(taskName, [description, ] taskList);
               </pre>
-              <p>Here we do not use the description field since we have a default task in our framework that gives you this information. The task should be placed after your loadNPMtasks section of the Gruntfile. You can add it before without issues, but for the sake of consistency place it after. If done correctly when you run the command <code>grunt debug</code> the command line should run sass, browsersync, and a page will open up in the browser with this site.
+              <p>Here we do not use the description field since we have a default task in our framework that gives you this information. The task should be placed after your loadNPMtasks section of the Gruntfile. You can add it before without issues, but for the sake of consistency place it after. If done correctly when you run the command <code>grunt development</code> nthe command line should run sass, browsersync, and a page will open up in the browser with this site.
               </p>
               <button class="btn">show code</button>
               <pre>
-                grunt.registerTask('debug', ['sass', 'concat', 'browserSync', 'watch']);
+                grunt.registerTask('dev', ['sass', 'concat', 'browserSync', 'watch']);
               </pre>
             </li>
+            <li>
+              <h3>Environments</h3>
+              <p>
+                Now that we have a basic watch task and browser sync setup we can have a discssion about environments. So far we have been working in a development environment. We are not minifying files or changing the CSS and JS paths to reflect moving to a release environment. These next few steps are going to move us through a basic environment setup so we can process files for development, testing, and release.
+              </p>
+              <ul>
+                <li>Development - creation of the website/app</li>
+                <li>Testing - testing environment when users are running through to find bugs</li>
+                <li>Deploy - App/Website is being deployed to the public facing servers</li>
+              </ul>
+              <p>
+                We've already created a task for development, so that is a third of the battle. For the testing environment our aim is to concat the javascript files, prepare css styles for legacy browsers, and change the file paths on the index.html to reflect these concatenated files. Release our goal is to expand on testing's tasks to minify our files. We don't have all of the plugins to accomplish this, so we are going to grab them and set them up.
+              </p>
+            </li>
+            <li>
+              <h3>Uglifying Javascript</h3>
+              <p>
+                First in our plugin trip towards environment conscious gruntfiles is to install and configure a javascript minification plugin. In this exercise we are going to use the official one from GruntJS, <a href="https://github.com/gruntjs/grunt-contrib-uglify" target="_blank">grunt-contrib-uglify</a>. Follow through the instructions on the repo to install and insert the loadNpmTasks into your gruntfile. What we want to do here is take a src file (site.js) and output the destination file as site.min.js. Looking at the examples in the repo, we want to most closely follow the basic compression model. In the example I have used long hand so my configuration is more easily read.
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+              uglify: {
+                deploy: {
+                  src: 'js/site.js',
+                  dest: 'js/site.min.js'
+                }
+              }
+              </pre>
+              <p>Test the configuration by using <code>grunt ugilfy</code>. If all runs smoothly you should now see a site.min.js file in your javascript folder.
+              </p>
+            </li>
+            
+            <li>
+              <h3>Preening CSS</h3>
+              <p>
+                Libraries like Bootstrap are great, but they can add quite a bit of overhead in code that we don't use. We are going to take an awesome plugin utilizing uncss to remove unused CSS declaration. <a href="https://github.com/addyosmani/grunt-uncss" target="_blank">Grunt-uncss</a> will do just that for us. You know the drill follow the instructions to install this plugin. What uncss does is compare your css file to your html files to find and match declartions. If a declaration is not found, it will be deleted from the css file. Here we will be creating two subtasks: testing and deploy. For testing the source file(s) will be any .html file that uncss needs to parse through. The destination file should be the site.css file that you created earlier. For deploy we want the src file to remain the same, but the destination file should be site.min.css. We are also going to add the option of report min. Having these two tasks will be important for later.
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+              uncss: {
+                testing: {
+                  src: '*.html',
+                  dest: 'css/site.css'
+                },
+
+                deploy: {
+                  options: {
+                    report: 'min'
+                  },
+                  src: '*.html',
+                  dest: 'css/site.min.css'
+                }
+              }
+              </pre>
+              <p>
+                Once everything has been installed and configured test it out to make sure it works. You should see where the site.css file is made into a much smaller version. <code>grunt uncss</code> If there are any javascript added classes you will need to add an option to the configuration to ignore those classes. You can find out how to do this on the plugin's repo. 
+              </p>
+            </li>
+            <li>
+              <h3>Autoprefixer and its wonders</h3>
+              <p>
+                This plugin will take care of browser prefixes and add them to your CSS for compatibility purposes. With this plugin you will be telling it how many versions back you need it to render out for you. Go to the <a href="https://github.com/nDmitry/grunt-autoprefixer" target="_blank">repo</a> and configure your gruntfile. We want the source and destination file to be our site.css file. The options we will set up for this example will be the 'last 2 versions' for it to render out.
+                </p>
+              <button class="btn">show code</button>
+              <pre>
+              autoprefixer: {
+                options: {
+                  browsers: ['last 2 versions']
+                },
+                dev: {
+                  src: 'css/site.css',
+                  dest: 'css/site.css'
+                }
+              }
+              </pre>
+              <p>Test your new plugin and correct any errors that may pop up</p>
+            </li>
+            <li>
+              <h3>Environment Switching</h3>
+              <p>
+                Now we are going to install and configure an environment switcher. For our examples we are going to use <a href="https://github.com/ArcaneMainFrame/grunt-captain-hook" target="_blank">grunt-captain-hook</a>. While there are many options out there for this, captain-hook was created to suit our unique needs within the company architexture. Follow through the instructions to get the plugin installed. With this one we want the jsfiles to reflect the file(s) used per environment. For development we want all of the javascript files including the path for the livereload server to work. For testing we want the unminifed site.js file. Finally for deploy we want to use the min js file. For the css files, development and testing will be the same referring to the site.css file. For deploy we want the site.min.css file. We are going to use subtasks to achieve this. So far you have just be using one subtask per configuration. 
+              </p>
+              <p>
+              Looking back at a prior example of the sass task we configure, you will notice an object named 'dev' that contains all of the references to the src files and dest files. 'dev' in this case is a subtask referring to the 'development' environment. Expanding upon that concept we are creating a 'dev' for development, 'testing' for testing, and 'deploy' for the deployment environments.
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+              captain_hook: {
+                dev: {
+                  cssFiles: 'css/site.css',
+                  jsFiles: [
+                    'js/**/*.js',
+                    '//localhost:35729/livereload.js',
+                    "!js/site.js",
+                    "!js/site.min.js"
+                  ],
+                  targetHtml: '*.html'
+                },
+
+                testing: {
+                  cssFiles: 'css/site.css',
+                  jsFiles: 'js/site.js',
+                  targetHtml: '*.html' 
+                },
+
+                deploy: {
+                  cssFiles: 'css/site.min.css',
+                  jsFiles: 'js/site.min.js',
+                  targetHtml: '*.html'
+                }
+              }
+              </pre>
+              <p>
+                You should also add the CSS and JS start and end tags to your HTML. The instructions can be found on the plugin's repo. Now we are going to test each subtask individually. You can do this very simply. Instead of calling just <code>grunt captain_hook</code> you will call it by task with a ':' and the subtask name immediately following like so: <code>grunt captain_hook:testing</code>.
+              </p>
+            </li>
+            <li>
+              <h3>Bringing it all together</h3>
+              <p>
+                We have all the plugins set up to create the environment specific tasks. Just like in the prior lesson we are going to string together when tasks run to create a testing command and a deploy command. The testing task should concentrate on bundling files and taking care of browser prefixes. Here I have told it to run concat, sass, autoprefixer, uncss:testing, and finally captain_hook:testing. Deploy should be similar but with minification tasks added. Concat, uglify, sass, autoprefixer, uncss:deploy, and captain_hook:deploy.
+              </p>
+              <button class="btn">show code</button>
+              <pre>
+              grunt.registerTask('testing', ['concat', 'sass', 'autoprefixer', 'uncss:testing', 'captain_hook:testing']);
+              grunt.registerTask('deploy', ['concat', 'uglify', 'sass', 'autoprefixer', 'uncss:deploy', 'captain_hook:deploy']);
+              </pre>
           </ul>
         </div>
       </article>
+
       <section class="row">
         <div class="col-xs-12">
           <h2>Resources</h2>
@@ -207,13 +344,24 @@
             <li><a href="https://github.com/gruntjs">GruntJS & Plugins Git Repo</a></li>
             <li><a href="https://docs.npmjs.com/">npm Documentation</a></li>
           </ul>
+          <h2>Troubleshooting Checklist</h2>
+          <ul>
+            <li>Check your syntax</li>
+            <li>Check your syntax</li>
+            <li>Check your spelling</li>
+            <li>You can run the grunt task with the flag <code>-verbose</code> to get a more in-depth run down of what the task is doing.</li>
+            <li>Check the issues section of the plugin repo that is giving you trouble. A lot of times someone has already run across your error and has a fix for it.</li>
+            <li><a href="http://stackoverflow.com/">StackOverflow</a> is another good resource to search through for solutions others have had.</li>
+          </ul>
         </div>
       </section>
     </main>
 
-    <script src="js/jquery/jquery.min.js"></script>
-    <script src="js/script-learngrunt.js"></script>
-    <script src="//localhost:35729/livereload.js"></script>
+    <!-- begin:js -->
+<script src="js/jquery/jquery.min.js"></script>
+<script src="js/script-learngrunt.js"></script>
+<script src="//localhost:35729/livereload.js"></script>
+<!-- end:js -->
   </body>
 
 </html>

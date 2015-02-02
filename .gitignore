@@ -44,6 +44,11 @@ Temporary Items
 
 bower_components/
 node_modules/
+css/site.css
+js/site.js
+js/site.min.js
 gruntfile.js
 package.json
 npm-debug.log
+css/site.css.map
+css/site.min.css

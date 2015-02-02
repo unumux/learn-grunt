@@ -1,3 +1,12 @@
 .list-unstyled li {
 	margin: 0 0 40px;
 }
+
+.list-unstyled ul {
+	margin:0 0 10px;
+
+	li {
+		margin:0;
+		list-style-type: disc;
+	}
+}
