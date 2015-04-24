@@ -3,7 +3,7 @@
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Learn Grunt</title>
+      <title>Learn Grunt It's Advanced!</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
       <!-- begin:css -->
@@ -88,7 +88,7 @@
               <pre>
                 sass: {
                   dev: {
-                      src: 'css/bootstrap.scss',
+                      src: 'scss/bootstrap.scss',
                       dest: 'css/site.css'
                   }
                  }
@@ -104,7 +104,7 @@
                   },
                   dev: {
                     files: {
-                      'css/site.css' : 'css/bootstrap.scss'
+                      'css/site.css' : 'scss/bootstrap.scss'
                     }
                   }
                 }
@@ -332,7 +332,8 @@
               grunt.registerTask('testing', ['concat', 'sass', 'autoprefixer', 'uncss:testing', 'captain_hook:testing']);
               grunt.registerTask('deploy', ['concat', 'uglify', 'sass', 'autoprefixer', 'uncss:deploy', 'captain_hook:deploy']);
               </pre>
-          </ul>
+              </li>
+              </ul>
         </div>
       </article>
 

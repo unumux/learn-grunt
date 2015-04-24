@@ -2,8 +2,12 @@ $(document).ready(function(){
 	$('body').bind('copy', function(e){
 		e.preventDefault();
 	});
+	if ($('pre').hasClass('show')){
 
-	$('pre').css('display', 'none');
+	}
+	else {
+		$('pre').css('display', 'none');
+	}
 });
 
 $('button').on('click', function(){
