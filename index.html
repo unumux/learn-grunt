@@ -38,7 +38,7 @@
 
             <li>
               <h3>Create a gruntfile</h3>
-              <p>Grunt be installed now it is time to create a gruntfile. Create a new file and save it as Gruntfile.js.  Naming, very important. All gruntfiles start with the following syntax so you will need to add it to your gruntfile. This tells the gruntfile to initialize and holds the blueprints of what it can do.</p>
+              <p>Grunt should be installed at this point. Now it is time to create a gruntfile. Create a new file and save it as Gruntfile.js.  Naming is very, very important. All gruntfiles start with the following syntax so you will need to add it to your gruntfile. This tells the gruntfile to initialize and holds the blueprints of what it can do.</p>
               <button class="btn">show code</button>
               <pre>
                 'use strict';
@@ -76,6 +76,10 @@
               <code>
               npm install grunt-sass --save-dev
               </code>
+              <p>Daniel installed it backwards like this(and it looked like it worked fine):</p>
+              <code>
+              	npm install --save-dev grunt-sass
+              </code>
               <p>The '--save-dev' are flags that save the plugin to the package.json file you created as a dependency. This basically says that this plugin is a dev dependency and needs to be saved into the package.json file. The package.json acts like a grocery list for NPM. It tells NPM when 'npm install' is called that it needs to grab these plugins and/or libraries from NPM's registry and install them. There are many more flags that are used in NPM. To learn about them all please visit NPM's documentation on it. Anything that starts with '-' stands for a flag in Node. Now let's wait for the sass plugin to finish installing. </p>
             </li>
 
@@ -94,7 +98,7 @@
                  }
               </pre>
               <p>
-                Some plugins like this one also take a shorthand version of this format. Shorthand is a little strange in its formatting in that it puts the output file first and then the source file. Most plugins also contain an 'options' configuration. This modifies how the task behaves. In the case below I have added an option setting the sourceMap to true. This will create a mapping file so when I look at the compiled CSS file, I can see which scss files and line number a declaration came from.
+                Some plugins like this one also take a shorthand version of this format. <strong style="font-size: 16px;">Shorthand is a little strange in its formatting in that it puts the output file first and then the source file.</strong> Most plugins also contain an 'options' configuration. This modifies how the task behaves. In the case below I have added an option setting the sourceMap to true. This will create a mapping file so when I look at the compiled CSS file, I can see which scss files and line number a declaration came from.
               </p>
               <button class="btn">show code</button>
               <pre>
@@ -194,7 +198,7 @@
 
             <li>
               <h3>Create a grunt task</h3>
-              <p>Scary yes? We can work through this. We are goinng to set up a simple task. This task will call sass, browsersync, and finally watch all with one command! We are goig to call it 'debug'. You can find Grunt's official documentation on creating a task on their <a target="_blank" href="http://gruntjs.com/creating-tasks">website</a>. Taken from their site this is the basic format of a grunt task.
+              <p>Scary yes? We can work through this. We are goinng to set up a simple task. This task will call sass, concat, browsersync, and finally watch all with one command! We are goig to call it 'dev'. You can find Grunt's official documentation on creating a task on their <a target="_blank" href="http://gruntjs.com/creating-tasks">website</a>. Taken from their site this is the basic format of a grunt task.
               </p>
               <pre>
                 grunt.registerTask(taskName, [description, ] taskList);
@@ -236,6 +240,7 @@
               </pre>
               <p>Test the configuration by using <code>grunt ugilfy</code>. If all runs smoothly you should now see a site.min.js file in your javascript folder.
               </p>
+
             </li>
             
             <li>
@@ -321,6 +326,7 @@
               <p>
                 You should also add the CSS and JS start and end tags to your HTML. The instructions can be found on the plugin's repo. Now we are going to test each subtask individually. You can do this very simply. Instead of calling just <code>grunt captain_hook</code> you will call it by task with a ':' and the subtask name immediately following like so: <code>grunt captain_hook:testing</code>.
               </p>
+                           <!--  <h2 style="background-color: orange; color: #fff; padding: 10px 40px 15px; margin: 20px -40px;">THIS IS WHERE DANIEL NEEDS TO PICK BACK UP</h2> -->
             </li>
             <li>
               <h3>Bringing it all together</h3>
@@ -358,9 +364,7 @@
     </main>
 
     <!-- begin:js -->
-<script src="js/jquery/jquery.min.js"></script>
-<script src="js/script-learngrunt.js"></script>
-<script src="//localhost:35729/livereload.js"></script>
+<script src="js/site.js"></script>
 <!-- end:js -->
   </body>
 
