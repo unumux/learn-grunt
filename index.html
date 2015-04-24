@@ -199,11 +199,11 @@
               <pre>
                 grunt.registerTask(taskName, [description, ] taskList);
               </pre>
-              <p>Here we do not use the description field since we have a default task in our framework that gives you this information. The task should be placed after your loadNPMtasks section of the Gruntfile. You can add it before without issues, but for the sake of consistency place it after. If done correctly when you run the command <code>grunt development</code> nthe command line should run sass, browsersync, and a page will open up in the browser with this site.
+              <p>Here we do not use the description field since we have a default task in our framework that gives you this information. The task should be placed after your loadNPMtasks section of the Gruntfile. You can add it before without issues, but for the sake of consistency place it after. If done correctly when you run the command <code>grunt development</code> in the command line, it should run sass, browsersync, concat, watch and a page will open up in the browser with this site.
               </p>
               <button class="btn">show code</button>
               <pre>
-                grunt.registerTask('dev', ['sass', 'concat', 'browserSync', 'watch']);
+                grunt.registerTask('development', ['sass', 'concat', 'browserSync', 'watch']);
               </pre>
             </li>
             <li>
