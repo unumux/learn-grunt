@@ -90,7 +90,7 @@
 					<h3>Calling in the variable.json</h3>
 					<p>Now that we have all of our variables in this JSON file, we will need to tell Grunt to go fetch and read it. This 'read' function is a part of 'grunt's language'. We are telling it there is a file that it needs to read. In this case the syntax is <code>grunt.file.readJSON('filename.json')</code>. Simple to remember huh? Replace the filename.json with the name of our variables file. This line will go right after the <code>grunt.initConfig</code> line. 
 					</p>
-					<p>So now we have it reading the file, so now grunt knows what are variables are. For the sake of sanity later let's assign reading this file as a variable. Call it 'variables' because this tutorial is very original. For reference your code for this line should look something like this: <code>variables: grunt.file.readJSON('variables.json'),</code>. Next step will be putting this into a useful format under each plugin to call in the variable it needs.</p>
+					<p>So now we have it reading the file, so now grunt knows what are variables are. For the sake of sanity later let's assign reading this file as a variable. Call it 'variable' because this tutorial is very original. For reference your code for this line should look something like this: <code>variable: grunt.file.readJSON('variables.json'),</code>. Next step will be putting this into a useful format under each plugin to call in the variable it needs.</p>
 				</li>
 				<li>
 					<h3>Your friendly intro into templates</h3>
@@ -113,6 +113,7 @@
      }
   					</pre>
   					<p>You have probably guessed what your next task is young grasshopper. To go through the whole gruntfile and repeat this process until it is all nice and templated. Your guess would be correct. Go ahead, I'll wait.</p>
+  					<p>After the file has been converted over, you are going to want to run through each task and make sure they still work as expected. Remember the first and second rule of troubleshooting is to check your syntax and then your spelling.</p>
 				</li>
               </ul>
         </div>

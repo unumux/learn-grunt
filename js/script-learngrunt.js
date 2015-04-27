@@ -2,12 +2,16 @@ $(document).ready(function(){
 	$('body').bind('copy', function(e){
 		e.preventDefault();
 	});
-	if ($('pre').hasClass('show')){
+	
 
-	}
-	else {
-		$('pre').css('display', 'none');
-	}
+	$('pre').each(function(){
+		if ($(this).hasClass('show')){
+
+			}
+			else {
+				$(this).css('display', 'none');
+			}
+	});
 });
 
 $('button').on('click', function(){
