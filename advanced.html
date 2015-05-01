@@ -23,12 +23,12 @@
   <main class="container">
   	<article class="row">
   		<div class="col-xs-12">
-  			<p>Now that you have some basics under your belt like how to install your plugins and get the basic environment setup, we are going to move towards more advanced techniques. Learning such things like how to manipulate variables within your grunt file and more things that the options can give you. </p>
+  			<p>Now that you have some basics under your belt like how to install your plugins and get the basic environment setup, we are going to move towards more advanced techniques. Learning such things like how to manipulate variables within your grunt file. </p>
      		 <ul class="list-unstyled">
                 <li>
                   <h3>Creating a JSON file</h3>
                   <p>
-                    From our last lessons we created a nice little gruntfile. Now we are going to take it up a level. If you look throughout your file, you will notice we are referring to the same files over and over again. While this works, it makes it a pain later if we ever have to change the location of the files or need to work with different ones. Now I know what you are thinking javascript has variables why not apply that to Grunt which is just a javascript libary of sorts? Well we can and will! First go ahead and create a json file entitled 'variables'.
+                    From our last lesson we created a nice little gruntfile. Now we are going to take it up a level. If you look throughout your file, you will notice we are referring to the same files over and over again. While this works, it makes it a pain later if we ever need to change the location of the files or need to work with different ones. Now I know what you are thinking javascript has variables why not apply that to Grunt which is just a javascript libary of sorts? Well we can and will! First go ahead and create a json file entitled 'variables'.
                   </p>
                   <!-- <button class="btn">show code</button>
                   <pre>
@@ -46,7 +46,7 @@
       }
      }
   </pre>
-  					<p>We are going to create our variable names based upon the configuration you see above. Let's take the 'scss/bootstrap.scss' value. At it's base level provides us the source file to use to generate our css. 'cssSrc' would be the appropriate variable name. It clearly states what it is for. So let's add that to the variables file. In the same vein we will be doing the same to the destination file here which is 'css/site.css'. Following the same convention we are going to call it 'cssDest'. Our variables file should look similar to this:</p>
+  					<p>We are going to create our variable names based upon the configuration you see above. Let's take the 'scss/bootstrap.scss' value. At it's base level provides us the location of the source file used to generate our css. 'cssSrc' would be the appropriate variable name. It clearly states what it is for. So let's add that to the variables file. In the same vein we will be doing the same to the destination file here which is 'css/site.css'. Following the naming convention we are going to call it 'cssDest'. Our variables file should look similar to this:</p>
 					<button class="btn">show code</button>
 <pre>
 {
@@ -88,9 +88,9 @@
 				</li>
 				<li>
 					<h3>Calling in the variable.json</h3>
-					<p>Now that we have all of our variables in this JSON file, we will need to tell Grunt to go fetch and read it. This 'read' function is a part of 'grunt's language'. We are telling it there is a file that it needs to read. In this case the syntax is <code>grunt.file.readJSON('filename.json')</code>. Simple to remember huh? Replace the filename.json with the name of our variables file. This line will be the first line with the <code>grunt.initConfig</code> function. 
+					<p>Now that we have all of our variables in this JSON file, we will need to tell Grunt to go fetch and read it. This 'read' function is a part of 'grunt's language'. We are telling it there is a file that it needs to read. In this case the syntax is <code>grunt.file.readJSON('filename.json')</code>. Simple to remember huh? Replace the filename.json with the name of our variables file. This line will be the first line within the <code>grunt.initConfig</code> function. 
 					</p>
-					<p>So now we have it reading the file, so now grunt knows what are variables are. For the sake of sanity later let's assign reading this file as a variable. Call it 'variable' because this tutorial is very original. For reference your code for this line should look something like this: <code>variable: grunt.file.readJSON('variables.json'),</code>. Next step will be putting this into a useful format under each plugin to call in the variable it needs.</p>
+					<p>So now we have it reading the file, so grunt knows what are variables are. For the sake of sanity later let's assign reading this file as a variable. Call it 'variable' because this tutorial is very original. For reference your code for this line should look something like this: <code>variable: grunt.file.readJSON('variables.json'),</code>. Next step will be putting this into a useful format under each plugin to call in the variable it needs.</p>
 				</li>
 				<li>
 					<h3>Your friendly intro into templates</h3>
