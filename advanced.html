@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Learn Grunt</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+      <!-- begin:css -->
+<link rel="stylesheet" type="text/css" href="css/site.css">
+<!-- end:css -->
+  </head>
+  <body>
+  	<header>
+    <div class="container">
+      <section class="row">
+        <div class="col-xs-12">
+          <h1>Learning Grunt (Advanced)</h1>
+        </div>
+      </section>
+    </div>
+  </header>
+  <main class="container">
+  	<article class="row">
+  		<div class="col-xs-12">
+  			<p>Now that you have some basics under your belt like how to install your plugins and get the basic environment setup, we are going to move towards more advanced techniques. Learning such things like how to manipulate variables within your grunt file. </p>
+     		 <ul class="list-unstyled">
+                <li>
+                  <h3>Creating a JSON file</h3>
+                  <p>
+                    From our last lesson we created a nice little gruntfile. Now we are going to take it up a level. If you look throughout your file, you will notice we are referring to the same files over and over again. While this works, it makes it a pain later if we ever need to change the location of the files or need to work with different ones. Now I know what you are thinking javascript has variables why not apply that to Grunt which is just a javascript libary of sorts? Well we can and will! First go ahead and create a json file entitled 'variables'.
+                  </p>
+                  <!-- <button class="btn">show code</button>
+                  <pre>
+                 
+                  </pre> -->
+                </li>
+                <li>
+                	<h3>Making dem variables</h3>
+                	<p>Now we have a variables file let's put some variables into this file. I would suggest a naming convention that allows you to easily see where they could be applied. Let's talk our sass task first. It looks or should look similar to this:</p>
+<pre class="show ">
+    sass: {
+      dev: {
+          src: 'scss/bootstrap.scss',
+          dest: 'css/site.css'
+      }
+     }
+  </pre>
+  					<p>We are going to create our variable names based upon the configuration you see above. Let's take the 'scss/bootstrap.scss' value. At it's base level provides us the location of the source file used to generate our css. 'cssSrc' would be the appropriate variable name. It clearly states what it is for. So let's add that to the variables file. In the same vein we will be doing the same to the destination file here which is 'css/site.css'. Following the naming convention we are going to call it 'cssDest'. Our variables file should look similar to this:</p>
+					<button class="btn">show code</button>
+<pre>
+{
+	"cssSrc": "scss/bootstrap.scss",
+	"cssDest": "css/site.css"
+}
+</pre>
+                </li>
+                <li>
+                	<h3>Placing in all of the variables</h3>
+                	<p>The same thing will need to be done with all of the other values in our gruntfile. Some of them are the same and that's okay. We are only going to create one variable for them. In the end you should not have variables with duplicate values assigned to them. Below is what I have arrived at. Your variables may be named differently and that's okay! So long as they would make sense to someone that isn't you.</p>
+                	<button class="btn">show code</button>
+<pre>
+{
+	"cssSrc": "scss/bootstrap.scss",
+	"cssDest": "css/site.css",
+	"cssMinDest": "css/site.min.css",
+	"jsSrc": [
+		"js/jquery/jquery.min.js"
+	],
+	"jsDest": "js/site.js",
+	"jsMinDest": "js/site.min.js",
+	"browserSyncFiles": [
+		"css/site.css",
+         "index.html",
+         "js/site.js"
+    ],
+    "jsFiles": [
+    	"js/**/*.js",
+	    "//localhost:35729/livereload.js",
+	    "!js/site.js",
+	    "!js/site.min.js"
+    ],
+    "htmlFiles": ".html",
+    "scssFiles": "scss/*.scss"
+
+}
+</pre>
+				</li>
+				<li>
+					<h3>Calling in the variable.json</h3>
+					<p>Now that we have all of our variables in this JSON file, we will need to tell Grunt to go fetch and read it. This 'read' function is a part of 'grunt's language'. We are telling it there is a file that it needs to read. In this case the syntax is <code>grunt.file.readJSON('filename.json')</code>. Simple to remember huh? Replace the filename.json with the name of our variables file. This line will be the first line within the <code>grunt.initConfig</code> function. 
+					</p>
+					<p>So now we have it reading the file, so grunt knows what are variables are. For the sake of sanity later let's assign reading this file as a variable. Call it 'variable' because this tutorial is very original. For reference your code for this line should look something like this: <code>variable: grunt.file.readJSON('variables.json'),</code>. Next step will be putting this into a useful format under each plugin to call in the variable it needs.</p>
+				</li>
+				<li>
+					<h3>Your friendly intro into templates</h3>
+					<p>So we just talked about putting variables into a useful format that grunt can read. The first step in learning this is understanding the grunt templating system. Templating is going to prevent us from repeating ourselves every time. Grunt designates templating by using the '<%= words.here %>' format. We are going to be using this to replace our old string variables to reading from our variables.json file instead! Isn't that exciting? Let's take our old buddy the sass plugin for this.</p>
+<pre class="show ">
+    sass: {
+      dev: {
+          src: 'scss/bootstrap.scss',
+          dest: 'css/site.css'
+      }
+     }
+  </pre>
+  					<p>Let's start by replacing the src subtask with our new improved variable system. First let's invoke templating with <code><%= %></code>. Now we need to add the variable we created so it knows to read our JSON file. <code><%= variable %></code>. Finally to make it all come together we need to tell it the variable inside of our json file. <code><%= variable.cssSrc %></code></p>
+  					<pre class="show">
+	sass: {
+      dev: {
+          src: '<%= variable.cssSrc %>',
+          dest: 'css/site.css'
+      }
+     }
+  					</pre>
+  					<p>You have probably guessed what your next task is young grasshopper. To go through the whole gruntfile and repeat this process until it is all nice and templated. Your guess would be correct. Go ahead, I'll wait.</p>
+  					<p>After the file has been converted over, you are going to want to run through each task and make sure they still work as expected. Remember the first and second rule of troubleshooting is to check your syntax and then your spelling.</p>
+				</li>
+              </ul>
+        </div>
+      </article>
+  </main>
+	 <!-- begin:js -->
+	<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/script-learngrunt.js"></script>
+	<script src="//localhost:35729/livereload.js"></script>
+	<!-- end:js -->
+  </body>
+  </html>
